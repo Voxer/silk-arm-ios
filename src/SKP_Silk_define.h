@@ -60,7 +60,7 @@ extern "C"
 
 /* DTX settings                                 */
 #define NO_SPEECH_FRAMES_BEFORE_DTX             5       /* eq 100 ms */
-#define MAX_CONSECUTIVE_DTX                     20      /* eq 400 ms */
+#define MAX_CONSECUTIVE_DTX                     5       /* eq 400 ms */
 
 #define USE_LBRR                                1
 
