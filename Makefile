@@ -20,10 +20,15 @@ OBJSUFFIX = .o
 # sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
 # IPHONE_SDK = /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk
-IPHONE_SDK = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk
+#IPHONE_SDK = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk
+IPHONE_SDK = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk
 
-CFLAGS += -g -arch armv7 -mthumb -isysroot ${IPHONE_SDK}
-LDFLAGS += -Wl,-no_pie -arch armv7 -mthumb -isysroot ${IPHONE_SDK}
+#CFLAGS += -g -arch armv7 -mthumb -isysroot ${IPHONE_SDK}
+#CFLAGS += -g -arch armv7s -isysroot ${IPHONE_SDK}
+CFLAGS += -g -arch armv7 -isysroot ${IPHONE_SDK}
+#LDFLAGS += -Wl,-no_pie -arch armv7 -mthumb -isysroot ${IPHONE_SDK}
+#LDFLAGS += -Wl,-no_pie -arch armv7s -isysroot ${IPHONE_SDK}
+LDFLAGS += -Wl,-no_pie -arch armv7 -isysroot ${IPHONE_SDK}
 USE_NEON=yes
 
 # CC     = `xcrun -sdk ${IPHONE_SDK} -find gcc-4.2`
@@ -55,11 +60,13 @@ ifneq (,$(TARGET_ARCH))
 endif
 # Helper to make NEON testing easier, when using USE_NEON=yes do not set TARGET_CPU or TARGET_FPU
 ifeq (yes,$(USE_NEON))
-	CFLAGS += -mcpu=cortex-a8 -mfloat-abi=softfp -mfpu=neon
+	#CFLAGS += -mcpu=cortex-a8 -mfloat-abi=softfp -mfpu=neon
+	CFLAGS += -mfloat-abi=softfp
 endif
 
 
-CFLAGS	+= -Wall -enable-threads -O3
+#CFLAGS	+= -Wall -enable-threads -O3 -flto
+CFLAGS	+= -Wall -O3 
 
 CFLAGS  += $(call cppflags-from-defines,$(CDEFINES))
 CFLAGS  += $(call cppflags-from-defines,$(ADDED_DEFINES))
