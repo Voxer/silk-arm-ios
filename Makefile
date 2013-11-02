@@ -19,24 +19,31 @@ OBJSUFFIX = .o
 # sudo xcode-select -switch /Developer
 # sudo xcode-select -switch /Applications/Xcode.app/Contents/Developer
 
-# IPHONE_SDK = /Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS4.3.sdk
-#IPHONE_SDK = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS5.1.sdk
-IPHONE_SDK = /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS6.1.sdk
+XCODE_SDK_NAME ?= iphoneos
+XCODE_SDK ?= $(shell xcodebuild -version -sdk ${XCODE_SDK_NAME} Path)
+ARCH ?= armv7
 
-#CFLAGS += -g -arch armv7 -mthumb -isysroot ${IPHONE_SDK}
-#CFLAGS += -g -arch armv7s -isysroot ${IPHONE_SDK}
-CFLAGS += -g -arch armv7 -isysroot ${IPHONE_SDK}
-#LDFLAGS += -Wl,-no_pie -arch armv7 -mthumb -isysroot ${IPHONE_SDK}
-#LDFLAGS += -Wl,-no_pie -arch armv7s -isysroot ${IPHONE_SDK}
-LDFLAGS += -Wl,-no_pie -arch armv7 -isysroot ${IPHONE_SDK}
-USE_NEON=yes
+#CFLAGS += -g -arch armv7 -mthumb -isysroot ${XCODE_SDK}
+#CFLAGS += -g -arch armv7s -isysroot ${XCODE_SDK}
+CFLAGS += -g -arch ${ARCH}
+#LDFLAGS += -Wl,-no_pie -arch armv7 -mthumb -isysroot ${XCODE_SDK}
+#LDFLAGS += -Wl,-no_pie -arch armv7s -isysroot ${XCODE_SDK}
+ifneq (iphonesimulator,$(XCODE_SDK_NAME))
+	LDFLAGS += -Wl,-no_pie -arch ${ARCH} -isysroot ${XCODE_SDK}
+	CFLAGS += -isysroot ${XCODE_SDK}
+	USE_NEON=no
+else
+	LDFLAGS += -Wl,-no_pie -arch ${ARCH}
+	USE_NEON=yes
+endif
 
 # CC     = `xcrun -sdk ${IPHONE_SDK} -find gcc-4.2`
 # CXX    = `xcrun -sdk ${IPHONE_SDK} -find g++-4.2`
-CC     = `xcrun -sdk ${IPHONE_SDK} -find clang`
-CXX    = `xcrun -sdk ${IPHONE_SDK} -find clang++`
-AR     = `xcrun -sdk ${IPHONE_SDK} -find ar`
-RANLIB = `xcrun -sdk ${IPHONE_SDK} -find ranlib`
+CC     = $(shell xcrun -sdk ${XCODE_SDK} -find clang)
+CXX    = $(shell xcrun -sdk ${XCODE_SDK} -find clang++)
+AR     = $(shell xcrun -sdk ${XCODE_SDK} -find ar)
+RANLIB = $(shell xcrun -sdk ${XCODE_SDK} -find ranlib)
+LIPO   = $(shell xcrun -sdk ${XCODE_SDK} -find lipo)
 CP     = $(TOOLCHAIN_PREFIX)cp
 
 cppflags-from-defines 	= $(addprefix -D,$(1))
@@ -103,6 +110,11 @@ VPATH = ./ \
 # Variable definitions
 LIB_NAME = SKP_SILK_SDK
 TARGET = $(LIBPREFIX)$(LIB_NAME)$(LIBSUFFIX)
+TARGETarmv7 = $(LIBPREFIX)$(LIB_NAME)-armv7$(LIBSUFFIX)
+TARGETarmv7s = $(LIBPREFIX)$(LIB_NAME)-armv7s$(LIBSUFFIX)
+TARGETarm64 = $(LIBPREFIX)$(LIB_NAME)-arm64$(LIBSUFFIX)
+TARGETi386 = $(LIBPREFIX)$(LIB_NAME)-i386$(LIBSUFFIX)
+TARGETx86_64 = $(LIBPREFIX)$(LIB_NAME)-x86_64$(LIBSUFFIX)
 
 SRCS_C = $(wildcard src/*.c) 
 #ifneq (,$(TOOLCHAIN_PREFIX))
@@ -131,6 +143,20 @@ default: all
 
 all: $(TARGET) encoder decoder signalcompare
 
+fat:
+	XCODE_SDK_NAME=iphoneos ARCH=armv7 $(MAKE) $(MAKEFLAGS) -B all
+	mv $(TARGET) $(TARGETarmv7)
+	XCODE_SDK_NAME=iphoneos ARCH=armv7s $(MAKE) $(MAKEFLAGS) -B all
+	mv $(TARGET) $(TARGETarmv7s)
+	XCODE_SDK_NAME=iphoneos ARCH=arm64 $(MAKE) $(MAKEFLAGS) -B all
+	mv $(TARGET) $(TARGETarm64)
+	XCODE_SDK_NAME=iphonesimulator ARCH=i386 $(MAKE) $(MAKEFLAGS) -B all
+	mv $(TARGET) $(TARGETi386)
+	XCODE_SDK_NAME=iphonesimulator ARCH=x86_64 $(MAKE) $(MAKEFLAGS) -B all
+	mv $(TARGET) $(TARGETx86_64)
+	$(LIPO) -create $(TARGETarmv7) $(TARGETarmv7s) $(TARGETarm64) \
+			$(TARGETi386) $(TARGETx86_64) -output $(TARGET)
+
 lib: $(TARGET)
 
 $(TARGET): $(OBJS)
@@ -150,3 +176,4 @@ clean:
 		  $(SIGNALCMP_OBJS) $(TEST_OBJS) \
 		  encoder$(EXESUFFIX) decoder$(EXESUFFIX) signalcompare$(EXESUFFIX)
 
+.PHONY: fat
