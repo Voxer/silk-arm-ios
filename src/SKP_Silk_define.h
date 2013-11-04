@@ -1,5 +1,5 @@
 /***********************************************************************
-Copyright (c) 2006-2011, Skype Limited. All rights reserved. 
+Copyright (c) 2006-2012, Skype Limited. All rights reserved. 
 Redistribution and use in source and binary forms, with or without 
 modification, (subject to the limitations in the disclaimer below) 
 are permitted provided that the following conditions are met:
@@ -60,7 +60,7 @@ extern "C"
 
 /* DTX settings                                 */
 #define NO_SPEECH_FRAMES_BEFORE_DTX             5       /* eq 100 ms */
-#define MAX_CONSECUTIVE_DTX                     5       /* eq 400 ms */
+#define MAX_CONSECUTIVE_DTX                     20      /* eq 400 ms */
 
 #define USE_LBRR                                1
 

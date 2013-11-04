@@ -1,5 +1,5 @@
 /***********************************************************************
-Copyright (c) 2006-2011, Skype Limited. All rights reserved. 
+Copyright (c) 2006-2012, Skype Limited. All rights reserved. 
 Redistribution and use in source and binary forms, with or without 
 modification, (subject to the limitations in the disclaimer below) 
 are permitted provided that the following conditions are met:
@@ -38,12 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 /* Slower than schur(), but more accurate.                              */
 /* Uses SMULL(), available on armv4                                     */ 
-
-// This code is force enabled as of August 2nd 2012, because the
-// assembly version produces a horrible noise when encoding on
-// iPhone 4. (The problem is not present on iPhone 3GS, iPhone 4S,
-// iPad 2 or iPad 3rd gen)
-#if 1 || EMBEDDED_ARM<6
+#if EMBEDDED_ARM<6
 SKP_int32 SKP_Silk_schur64(                    /* O:    Returns residual energy                     */
     SKP_int32            rc_Q16[],               /* O:    Reflection coefficients [order] Q16         */
     const SKP_int32      c[],                    /* I:    Correlations [order+1]                      */

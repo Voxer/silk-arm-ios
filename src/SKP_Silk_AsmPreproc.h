@@ -1,5 +1,5 @@
 /***********************************************************************
-Copyright (c) 2006-2011, Skype Limited. All rights reserved. 
+Copyright (c) 2006-2012, Skype Limited. All rights reserved. 
 Redistribution and use in source and binary forms, with or without 
 modification, (subject to the limitations in the disclaimer below) 
 are permitted provided that the following conditions are met:
@@ -48,12 +48,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 #include "SKP_Silk_AsmHelper.h"
 
+
 /* Checking compilier __ARMEL__ defines */
-#if !__ARMEL__ && (!defined(NO_ASM))
-#error	Currently SKP_Silk_AsmPreProc only supports little endian.
+#if !__ARMEL__ && (!defined(NO_ASM)) && (!defined(_WINRT))
 // above line can be replaced by 
-// #warning	__ARMEL__=0
-// #define NOASM
+# warning	__ARMEL__=0
+# define NOASM
 #endif
 
 /* Defining macro for different user label prefix. */                               
@@ -84,10 +84,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #define ARM_LITTLE_ENDIAN
 #endif
 
-#if __ARM_EABI__ 
-#define SKP_DIV32_arm __divsi3
-#endif
-
 /* Interfacing some asm directives to macros*/
 #define 	GBL		.globl
 
@@ -111,11 +107,35 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endif
 #endif
 
+#ifdef _WINRT
+#define L(a)	a
+#define LR(a,d)	%##d##a
 
+#define TABLE(L, symbol) symbol
+#else
+#define L(a) 	a:
+#define LR(a,d)	a##d
+#define DCD	.long
+#define DCW	.short
+#define TABLE(L, symbol) L
+#endif
+
+#define streqh strheq
+#define strneh strhne
+#define strgth strhgt
+#define strlth strhlt
+#define ldrgtsh ldrshgt
+#define ldmgtia ldmiagt
+#define ldmgtdb ldmdbgt
+#define ldrneh ldrhne
+#define ldmltia ldmialt
 /*
  *	ASM preprocessor part:
  */
 
+#ifdef _WINRT
+#else
+//	AT&T Format
 #if EMBEDDED_ARM >= 7
 .set	_ARCH, 7
 #elif EMBEDDED_ARM >= 6
@@ -134,8 +154,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .set	_NEON, 0
 #endif
 
+MACRO	SKP_TABLE  ARG0_in, ARG1_in
+SYM(ARG0):
+END_MACRO
 
-MACRO SKP_SMLAD
+
+
+MACRO SKP_SMLAD	ARG0_in, ARG1_in, ARG2_in, ARG3_in
 #if EMBEDDED_ARM>=6
 	smlad	ARG0, ARG1, ARG2, ARG3
 #elif EMBEDDED_ARM>=5
@@ -146,7 +171,7 @@ MACRO SKP_SMLAD
 #endif
 END_MACRO
 
-MACRO SKP_SMUAD
+MACRO SKP_SMUAD	ARG0_in, ARG1_in, ARG2_in
 #if EMBEDDED_ARM>=6
 	smuad	ARG0, ARG1, ARG2
 #elif EMBEDDED_ARM>=5
@@ -157,7 +182,7 @@ MACRO SKP_SMUAD
 #endif
 END_MACRO
 
-MACRO SKP_SMLALD
+MACRO SKP_SMLALD	ARG0_in, ARG1_in, ARG2_in, ARG3_in
 #if EMBEDDED_ARM>=6
 	smlald	ARG0, ARG1, ARG2, ARG3
 #elif EMBEDDED_ARM>=5
@@ -168,7 +193,7 @@ MACRO SKP_SMLALD
 #endif
 END_MACRO
 
-MACRO SKP_RSHIFT_ROUND
+MACRO SKP_RSHIFT_ROUND ARG0_in, ARG1_in, ARG2_in
 #if EMBEDDED_ARM>=4
 	mov		ARG0, ARG1, asr #(ARG2-1)
 	add		ARG0, ARG0, #1
@@ -177,4 +202,14 @@ MACRO SKP_RSHIFT_ROUND
 	.abort "SKP_RSHIFT_ROUND can't be used for armv3 or lower device.."
 #endif
 END_MACRO
+
+MACRO ADD_SHIFT ARG0_in, ARG1_in, ARG2_in, ARG3_in, ARG4_in
+		add ARG0, ARG1, ARG2, ARG3 ARG4
+END_MACRO
+
+MACRO POST_IR 	ARG0_in, ARG1_in, ARG2_in, ARG3_in
+		ARG0 ARG1, [ARG2], ARG3
+END_MACRO
+
+#endif
 #endif //_SKP_ASM_PREPROC_H_

@@ -31,10 +31,10 @@ CFLAGS += -g -arch ${ARCH}
 ifneq (iphonesimulator,$(XCODE_SDK_NAME))
 	LDFLAGS += -Wl,-no_pie -arch ${ARCH} -isysroot ${XCODE_SDK}
 	CFLAGS += -isysroot ${XCODE_SDK}
-	USE_NEON=no
+	USE_NEON=yes
 else
 	LDFLAGS += -Wl,-no_pie -arch ${ARCH}
-	USE_NEON=yes
+	USE_NEON=no
 endif
 
 # CC     = `xcrun -sdk ${IPHONE_SDK} -find gcc-4.2`
