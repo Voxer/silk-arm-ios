@@ -25,15 +25,15 @@ ARCH ?= armv7
 
 #CFLAGS += -g -arch armv7 -mthumb -isysroot ${XCODE_SDK}
 #CFLAGS += -g -arch armv7s -isysroot ${XCODE_SDK}
-CFLAGS += -g -arch ${ARCH}
+CFLAGS += -g -arch ${ARCH} -fPIC
 #LDFLAGS += -Wl,-no_pie -arch armv7 -mthumb -isysroot ${XCODE_SDK}
 #LDFLAGS += -Wl,-no_pie -arch armv7s -isysroot ${XCODE_SDK}
 ifneq (iphonesimulator,$(XCODE_SDK_NAME))
-	LDFLAGS += -Wl,-no_pie -arch ${ARCH} -isysroot ${XCODE_SDK}
+	LDFLAGS += -Wl,-pie -arch ${ARCH} -isysroot ${XCODE_SDK}
 	CFLAGS += -isysroot ${XCODE_SDK}
 	USE_NEON=yes
 else
-	LDFLAGS += -Wl,-no_pie -arch ${ARCH}
+	LDFLAGS += -Wl,-pie -arch ${ARCH}
 	USE_NEON=no
 endif
 
