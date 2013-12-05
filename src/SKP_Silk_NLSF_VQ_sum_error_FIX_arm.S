@@ -58,6 +58,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .set	sp_in_Q15, 36 
 .set	sp_w_Q6, 40 
 .set	sp_pCB_Q15, 44 
+.align	4
 .globl	SYM(SKP_Silk_NLSF_VQ_sum_error_FIX)
 SYM(SKP_Silk_NLSF_VQ_sum_error_FIX):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}

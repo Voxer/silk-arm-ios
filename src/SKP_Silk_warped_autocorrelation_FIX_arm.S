@@ -55,6 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .set	sp_corr_ptr, 204 
 .set	sp_scale_ptr, 208 
 .set	sp_input_ptr, 212 
+.align	4
 .globl	SYM(SKP_Silk_warped_autocorrelation_FIX)
 SYM(SKP_Silk_warped_autocorrelation_FIX):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}

@@ -55,6 +55,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	VARDEF out2, ip
 	VARDEF out, lr
 
+.align	4
 .globl	SYM(SKP_Silk_resampler_private_up2_HQ)
 SYM(SKP_Silk_resampler_private_up2_HQ):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}
@@ -136,15 +137,19 @@ L(0)
 		
 	ldmia	sp!,  {r4-r10, fp, ip, pc}
 
+.align	4
 L(SYM(resampler_up2_hq_0))
 	DCD	0x83BF10B8
 
+.align	4
 L(SYM(resampler_up2_hq_1))
 	DCD 	0xD2FF3FA7
 
+.align	4
 L(SYM(resampler_up2_hq_notch_1))
 	DCD	0xF1EC1EB8
 
+.align	4
 L(SYM(resampler_up2_hq_notch_2))
 	DCD	0x6F5C3333
 	END

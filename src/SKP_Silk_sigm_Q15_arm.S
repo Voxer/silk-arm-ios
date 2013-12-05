@@ -38,6 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	VARDEF val_PUT, r4
 	VARDEF in_Q5_tmp, r3
 
+.align	4
 .globl	SYM(SKP_Silk_sigm_Q15)
 SYM(SKP_Silk_sigm_Q15):
 	stmdb	sp!,  {r4-r7, fp, ip, lr}
@@ -67,6 +68,7 @@ L(1)
 L(L0)		
 	DCD	SYM(SKP_Silk_sigm_tab)
 
+.align	4
 SYM(SKP_Silk_sigm_tab):
 	DCW		237, 153, 73, 30, 12, 7,						\
 			16384, 23955, 28861, 31213, 32178, 32548,		\

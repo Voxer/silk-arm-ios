@@ -43,6 +43,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	VARDEF out1, r0
 
 .set	sp_S, 0 
+.align 4
 .globl	SYM(SKP_Silk_resampler_up2)
 SYM(SKP_Silk_resampler_up2):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}

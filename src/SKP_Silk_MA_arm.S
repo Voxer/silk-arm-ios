@@ -41,6 +41,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .set	sp_ptr_B, 4 
 .set	sp_ptr_S, 8 
 .set	sp_ptr_out, 12 
+.align	4
 .globl	SYM(SKP_Silk_MA_Prediction)
 SYM(SKP_Silk_MA_Prediction):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}
@@ -1178,6 +1179,7 @@ L(1)
 .set	SAVE_B, 4 
 .set	SAVE_S, 8 
 .set	SAVE_OUT, 12 
+.align	4
 .globl	SYM(SKP_Silk_MA_Prediction_Q13)
 SYM(SKP_Silk_MA_Prediction_Q13):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}
@@ -1327,6 +1329,7 @@ L(1)
 .set	sp_pB, 36 
 .set	sp_pS, 40 
 .set	sp_pout, 44 
+.align	4
 .globl	SYM(SKP_Silk_LPC_analysis_filter)
 SYM(SKP_Silk_LPC_analysis_filter):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}

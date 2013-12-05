@@ -52,6 +52,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 .set	sp_buf, 0 
 .set	sp_maxi, 4 
+.align	4
 .globl	SYM(SKP_Silk_resampler_private_down_FIR_INTERPOL0)
 SYM(SKP_Silk_resampler_private_down_FIR_INTERPOL0):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}
@@ -156,6 +157,7 @@ L(1)
 .set	sp_buf, 0 
 .set	sp_coef, 4 
 .set	sp_maxi, 8 
+.align	4
 .globl	SYM(SKP_Silk_resampler_private_down_FIR_INTERPOL1)
 SYM(SKP_Silk_resampler_private_down_FIR_INTERPOL1):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}

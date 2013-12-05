@@ -75,6 +75,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	EXTERN SYM(SKP_Silk_allpass_int)
 
+.align	4
 .globl	SYM(SKP_Silk_ana_filt_bank_1)
 SYM(SKP_Silk_ana_filt_bank_1):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}

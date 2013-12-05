@@ -66,6 +66,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	EXTERN SYM(SKP_DIV32_arm)
 .set	sp_ptr_C, 0 
+.align	4
 .globl	SYM(SKP_Silk_schur64)
 SYM(SKP_Silk_schur64):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}

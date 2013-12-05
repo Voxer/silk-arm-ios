@@ -30,6 +30,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #include "SKP_Silk_AsmPreproc.h"
 #if (EMBEDDED_ARM>0) && (EMBEDDED_ARM<5)
 
+.align	4
 .globl SYM(SKP_Silk_CLZ16)
 .globl SYM(SKP_Silk_CLZ32)
 

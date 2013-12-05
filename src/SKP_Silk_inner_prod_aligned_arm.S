@@ -46,6 +46,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	VARDEFD sum_tmp1_lo, d4
 	VARDEFD sum_tmp1_hi, d5
 
+.align	4
 .globl	SYM(SKP_Silk_inner_prod_aligned)
 SYM(SKP_Silk_inner_prod_aligned):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}
@@ -158,6 +159,7 @@ L(2)
 	VARDEFD accu1_lo, d10
 	VARDEFD accu1_hi, d11
 	
+.align	4
 .globl	SYM(SKP_Silk_inner_prod16_aligned_64)
 SYM(SKP_Silk_inner_prod16_aligned_64):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}
@@ -304,6 +306,7 @@ L(2)
 	VARDEF val8, ip
 #endif
 
+.align	4
 .globl	SYM(SKP_Silk_inner_prod_aligned)
 SYM(SKP_Silk_inner_prod_aligned):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}
@@ -482,6 +485,7 @@ L(0)
 #endif
 
  
+.align	4
 .globl	SYM(SKP_Silk_inner_prod16_aligned_64)
 SYM(SKP_Silk_inner_prod16_aligned_64):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}

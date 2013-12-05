@@ -35,6 +35,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	VARDEF pn2, r5
 	VARDEF lo, r6
 	VARDEF hi, r8
+.align	4
 .globl	SYM(SKP_Silk_A2NLSF_eval_poly)
 SYM(SKP_Silk_A2NLSF_eval_poly):
 	stmdb	sp!,  {r4-r8, fp, ip, lr}

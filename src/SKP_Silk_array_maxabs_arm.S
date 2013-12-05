@@ -42,6 +42,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	VARDEF const_int16_MAX, r5
 
+.align	4
 .globl	SYM(SKP_Silk_int16_array_maxabs)
 SYM(SKP_Silk_int16_array_maxabs):
 	stmdb	sp!,  {r4-r6, fp, ip, lr}
@@ -239,6 +240,7 @@ L(9)
 	VARDEF val_return, r0
 	VARDEF const_int16_MAX, r5
 
+.align	4
 .globl	SYM(SKP_Silk_int16_array_maxabs)
 SYM(SKP_Silk_int16_array_maxabs):
 	stmdb	sp!,  {r4-r8, fp, ip, lr}

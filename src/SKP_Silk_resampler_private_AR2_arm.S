@@ -40,6 +40,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	VARDEF	A_Q141, sl
 
 .set	sp_S, 0 
+.align	4
 .globl	SYM(SKP_Silk_resampler_private_AR2)
 SYM(SKP_Silk_resampler_private_AR2):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}

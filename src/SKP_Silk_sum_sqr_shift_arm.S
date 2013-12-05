@@ -36,6 +36,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	VARDEF		nrg,	 	_r7
 	VARDEF		idx, 		r8
 
+.align	4
 .globl	SYM(SKP_Silk_sum_sqr_shift)
 SYM(SKP_Silk_sum_sqr_shift):
 	stmdb	sp!,  {r4-r8, fp, ip, lr}

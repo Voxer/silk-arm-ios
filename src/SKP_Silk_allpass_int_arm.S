@@ -39,6 +39,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	VARDEF outk1, sl
 	VARDEF outk2, ip
 
+.align	4
 .globl	SYM(SKP_Silk_allpass_int)
 SYM(SKP_Silk_allpass_int):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}

@@ -49,6 +49,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 .set	sp_inc, 4 
 
 	EXTERN SYM(SKP_Silk_resampler_frac_FIR_144_alt)
+.align	4
 .globl	SYM(SKP_Silk_resampler_private_IIR_FIR_INTERPOL)
 SYM(SKP_Silk_resampler_private_IIR_FIR_INTERPOL):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}

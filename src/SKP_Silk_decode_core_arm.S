@@ -52,6 +52,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 	VARDEF val_LPC_order, lr
 	VARDEF val_LPC_pred_Q10, lr
 
+.align	4
 .globl	SYM(SKP_Silk_decode_short_term_prediction)
 SYM(SKP_Silk_decode_short_term_prediction):
 	stmdb	sp!,  {r4-r10, fp, ip, lr}
