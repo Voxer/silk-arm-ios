@@ -62,12 +62,5 @@ line.
 ## Steps by George to build a fat binary with armv7 and armv7s support
 
 1. make clean
-2. make lib
-3. mkdir workdir
-4. cp libSKP_SILK_SDK.a workdir
-5. make clean
-6. (Manually comment/uncomment lines in the Makefile to build armv7s version)
-7. make lib
-8. cd workdir
-9. lipo ./libSKP_SILK_SDK.a  ../libSKP_SILK_SDK.a -create -output test.a
-        test.a now is a fat library
+2. make fat
+3. fat binary will be in ./libSKP_SILK_SDK.a
