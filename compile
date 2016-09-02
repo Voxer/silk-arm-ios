@@ -1,14 +1,26 @@
+OUTPUT_DIRNAME=outputLibs
+
+rm -r $OUTPUT_DIRNAME
+
 for buildarch in armv5te armv7-a
 do
 make clean
 TOOLCHAIN_PREFIX=arm-linux-gnueabi- TARGET_ARCH=$buildarch make
-cp libSKP_SILK_SDK.a libSKP_SILK_SDK_$buildarch.a
+cp libsilk_android.a libsilk_android_$buildarch.a
 done
-
 
 for buildarch in i386
 do
 make clean
 TARGET_ARCH=$buildarch make
-cp libSKP_SILK_SDK.a libSKP_SILK_SDK_$buildarch.a
+cp libsilk_android.a libsilk_android_$buildarch.a
 done
+
+for androidarch in armeabi armeabi-v7a x86
+do
+mkdir -p $OUTPUT_DIRNAME/$androidarch
+done
+
+mv libsilk_android_armv5te.a $OUTPUT_DIRNAME/armeabi/libsilk_android.a
+mv libsilk_android_armv7-a.a $OUTPUT_DIRNAME/armeabi-v7a/libsilk_android.a
+mv libsilk_android_i386.a $OUTPUT_DIRNAME/x86/libsilk_android.a

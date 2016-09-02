@@ -81,7 +81,7 @@ VPATH = ./ \
         test 
 
 # Variable definitions
-LIB_NAME = SKP_SILK_SDK
+LIB_NAME = silk_android
 TARGET = $(LIBPREFIX)$(LIB_NAME)$(LIBSUFFIX)
 
 SRCS_C = $(wildcard src/*.c) 
