@@ -1,18 +1,20 @@
 OUTPUT_DIRNAME=outputLibs
+TARGETS=lib
+MAKEFLAGS=-j3
 
 rm -r $OUTPUT_DIRNAME
 
 for buildarch in armv5te armv7-a
 do
 make clean
-TOOLCHAIN_PREFIX=arm-linux-gnueabi- TARGET_ARCH=$buildarch make
+TOOLCHAIN_PREFIX=arm-linux-gnueabi- TARGET_ARCH=$buildarch make $MAKEFLAGS $TARGETS
 cp libsilk_android.a libsilk_android_$buildarch.a
 done
 
 for buildarch in i386
 do
 make clean
-TARGET_ARCH=$buildarch make
+TARGET_ARCH=$buildarch make $MAKEFLAGS $TARGETS 
 cp libsilk_android.a libsilk_android_$buildarch.a
 done
 
