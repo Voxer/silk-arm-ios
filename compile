@@ -1,0 +1,14 @@
+for buildarch in armv5te armv7-a
+do
+make clean
+TOOLCHAIN_PREFIX=arm-linux-gnueabi- TARGET_ARCH=$buildarch make
+cp libSKP_SILK_SDK.a libSKP_SILK_SDK_$buildarch.a
+done
+
+
+for buildarch in i386
+do
+make clean
+TARGET_ARCH=$buildarch make
+cp libSKP_SILK_SDK.a libSKP_SILK_SDK_$buildarch.a
+done
